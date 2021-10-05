@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function getApiData() {
+export function getApiData() {
   let url =
     "https://v6.exchangerate-api.com/v6/" +
     process.env.REACT_APP_EXCHANGE_RATE_API_KEY +
@@ -12,7 +12,7 @@ export async function getApiData() {
     }
 
     if (res.data != null) {
-      console.log(res.data);
+      return res.data;
     }
   });
 }
