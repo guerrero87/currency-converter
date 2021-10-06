@@ -2,19 +2,24 @@ import { getApiData } from "../Service/ApiService";
 
 let initialApiState = {
   loading: true,
-  apiResponse: "no response",
+  activeCurrency: "USD",
 };
 
 export const ApiReducer = (state = initialApiState, action) => {
   switch (action.type) {
     case "@data/request":
-      console.log("request reached");
-      let newState = {
+      console.log("@data/request");
+      return {
+        ...state,
         loading: false,
-        apiResponse: "sucess",
-        conversion_rates: action.payload.conversion_rates
+        conversion_rates: action.payload,
       };
-      return newState;
+    case "@data/update_currency":
+      console.log("@data/update_currency");
+      return { ...state, activeCurrency: action.payload };
+    case "@data/user_input":
+      console.log("@data/user_input");
+      return { ...state, userInput: action.payload };
     default:
       return state;
   }
@@ -27,7 +32,22 @@ export const initApi = () => {
 
     dispatch({
       type: "@data/request",
-      payload: apiResponse,
+      payload: apiResponse.conversion_rates,
     });
+  };
+};
+export const updateActiveCurrency = (activeCurrency, convertedAmount) => {
+  return (dispatch) => {
+    dispatch({
+      type: "@data/update_currency",
+      payload: activeCurrency,
+    });
+  };
+};
+
+export const userInput = (userInput) => {
+  return {
+    type: "@data/user_input",
+    payload: userInput,
   };
 };
