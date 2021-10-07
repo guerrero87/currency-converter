@@ -1,12 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { initApi } from "../../Reducers/ApiReducer";
-import {
-  swapOriginDestiny,
-  updateDestinyCurrency,
-  updateOriginCurrency,
-  userInput,
-} from "../../Reducers/ExchangeReducer";
+import { swapOriginDestiny, userInput } from "../../Reducers/ExchangeReducer";
+import CurrencyDropdown from "../CurrencyDropdown/CurrencyDropdown";
 
 export default function Content() {
   const dispatch = useDispatch();
@@ -28,65 +24,35 @@ export default function Content() {
   return (
     <div className="content">
       {apiState.loading ? (
-        <p>{"REQUESTING LATEST CONVERSION RATES"}</p>
+        <p>REQUESTING LATEST CONVERSION RATES</p>
       ) : (
         <div className="wrapper">
-          <p>Amount to convert:</p>
+          <span>Amount to convert:</span>
           <input
-            id="currency"
-            type="number"
+            id="userInput"
+            type="text"
+            maxLength="9"
             onChange={() =>
-              dispatch(userInput(document.getElementById("currency").value))
+              dispatch(userInput(document.getElementById("userInput").value))
             }
           />
-          <span>From</span>
-          <select
-            name="originCurrency"
-            id="originCurrency"
-            value={originCurrency}
-            onChange={() =>
-              dispatch(
-                updateOriginCurrency(
-                  document.getElementById("originCurrency").value
-                )
-              )
-            }
-          >
-            {Object.keys(rates).map((country, index) => {
-              return (
-                <option key={index} value={country}>
-                  {country}
-                </option>
-              );
-            })}
-          </select>
+          <CurrencyDropdown title="From" type="originCurrency" />
           <button onClick={() => dispatch(swapOriginDestiny())}>SWAP</button>
-          <span>To</span>
-          <select
-            name="destinyCurrency"
-            id="destinyCurrency"
-            value={destinyCurrency}
-            onChange={() =>
-              dispatch(
-                updateDestinyCurrency(
-                  document.getElementById("destinyCurrency").value
-                )
-              )
-            }
-          >
-            {Object.keys(rates).map((country, index) => {
-              return (
-                <option key={index} value={country}>
-                  {country}
-                </option>
-              );
-            })}
-          </select>
-          <p>
-            {exchangeState.userInput == null
+          <CurrencyDropdown title="To" type="destinyCurrency" />
+          <span>
+            {exchangeState.userInput == null || exchangeState.userInput === ""
               ? ""
-              : currencyConvert(exchangeState.userInput)}
-          </p>
+              : isNaN(exchangeState.userInput)
+              ? "input must be a number"
+              : currencyConvert(exchangeState.userInput).toLocaleString(
+                  "en-US",
+                  {
+                    minimumFractionDigits: 2,
+                    style: "currency",
+                    currency: destinyCurrency,
+                  }
+                )}
+          </span>
         </div>
       )}
     </div>

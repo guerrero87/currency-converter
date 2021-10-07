@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export function getApiData() {
-  let url =
+  const url =
     "https://v6.exchangerate-api.com/v6/" +
     process.env.REACT_APP_EXCHANGE_RATE_API_KEY +
     "/latest/USD";

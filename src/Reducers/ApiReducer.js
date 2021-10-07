@@ -1,12 +1,10 @@
 import { getApiData } from "../Service/ApiService";
 
-const initialApiState = {
+const initialState = {
   loading: true,
-  originCurrency: "USD",
-  destinyCurrency: "EUR",
 };
 
-export const ApiReducer = (state = initialApiState, action) => {
+export const ApiReducer = (state = initialState, action) => {
   switch (action.type) {
     case "@data/request":
       return {
