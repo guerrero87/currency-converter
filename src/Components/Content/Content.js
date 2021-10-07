@@ -1,20 +1,21 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { initApi } from "../../Reducers/ApiReducer";
 import {
-  initApi,
   swapOriginDestiny,
   updateDestinyCurrency,
   updateOriginCurrency,
   userInput,
-} from "../../Reducers/exchangeReducer";
+} from "../../Reducers/ExchangeReducer";
 
 export default function Content() {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.ApiReducer);
+  const apiState = useSelector((state) => state.ApiReducer);
+  const exchangeState = useSelector((state) => state.ExchangeReducer);
 
-  const rates = state.conversionRates;
-  const originCurrency = state.originCurrency;
-  const destinyCurrency = state.destinyCurrency;
+  const rates = apiState.conversionRates;
+  const originCurrency = exchangeState.originCurrency;
+  const destinyCurrency = exchangeState.destinyCurrency;
 
   useEffect(() => {
     dispatch(initApi());
@@ -26,7 +27,7 @@ export default function Content() {
 
   return (
     <div className="content">
-      {state.loading ? (
+      {apiState.loading ? (
         <p>{"REQUESTING LATEST CONVERSION RATES"}</p>
       ) : (
         <div className="wrapper">
@@ -82,7 +83,9 @@ export default function Content() {
             })}
           </select>
           <p>
-            {state.userInput == null ? "" : currencyConvert(state.userInput)}
+            {exchangeState.userInput == null
+              ? ""
+              : currencyConvert(exchangeState.userInput)}
           </p>
         </div>
       )}
