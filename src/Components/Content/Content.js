@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   initApi,
-  updateActiveCurrency,
+  swapOriginDestiny,
+  updateDestinyCurrency,
+  updateOriginCurrency,
   userInput,
 } from "../../Reducers/exchangeReducer";
 
@@ -10,20 +12,25 @@ export default function Content() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.ApiReducer);
 
-  const rates = state.conversion_rates;
-  const activeCurrency = state.activeCurrency;
+  const rates = state.conversionRates;
+  const originCurrency = state.originCurrency;
+  const destinyCurrency = state.destinyCurrency;
 
   useEffect(() => {
     dispatch(initApi());
   }, [dispatch]);
 
+  function currencyConvert(userInput) {
+    return (userInput * rates[destinyCurrency]) / rates[originCurrency];
+  }
+
   return (
     <div className="content">
       {state.loading ? (
-        <p>{"LOADING"}</p>
+        <p>{"REQUESTING LATEST CONVERSION RATES"}</p>
       ) : (
         <div className="wrapper">
-          <p>Enter amount to convert in USD:</p>
+          <p>Amount to convert:</p>
           <input
             id="currency"
             type="number"
@@ -31,14 +38,38 @@ export default function Content() {
               dispatch(userInput(document.getElementById("currency").value))
             }
           />
-          <p>Select conversion currency:</p>
+          <span>From</span>
           <select
-            name="rates"
-            id="ratesA"
-            defaultValue="USD"
+            name="originCurrency"
+            id="originCurrency"
+            value={originCurrency}
             onChange={() =>
               dispatch(
-                updateActiveCurrency(document.getElementById("ratesA").value)
+                updateOriginCurrency(
+                  document.getElementById("originCurrency").value
+                )
+              )
+            }
+          >
+            {Object.keys(rates).map((country, index) => {
+              return (
+                <option key={index} value={country}>
+                  {country}
+                </option>
+              );
+            })}
+          </select>
+          <button onClick={() => dispatch(swapOriginDestiny())}>SWAP</button>
+          <span>To</span>
+          <select
+            name="destinyCurrency"
+            id="destinyCurrency"
+            value={destinyCurrency}
+            onChange={() =>
+              dispatch(
+                updateDestinyCurrency(
+                  document.getElementById("destinyCurrency").value
+                )
               )
             }
           >
@@ -51,9 +82,7 @@ export default function Content() {
             })}
           </select>
           <p>
-            {state.userInput == null
-              ? ""
-              : state.userInput * rates[activeCurrency]}
+            {state.userInput == null ? "" : currencyConvert(state.userInput)}
           </p>
         </div>
       )}

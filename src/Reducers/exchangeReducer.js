@@ -1,8 +1,9 @@
 import { getApiData } from "../Service/ApiService";
 
-let initialApiState = {
+const initialApiState = {
   loading: true,
-  activeCurrency: "USD",
+  originCurrency: "USD",
+  destinyCurrency: "EUR",
 };
 
 export const ApiReducer = (state = initialApiState, action) => {
@@ -12,14 +13,24 @@ export const ApiReducer = (state = initialApiState, action) => {
       return {
         ...state,
         loading: false,
-        conversion_rates: action.payload,
+        conversionRates: action.payload,
       };
-    case "@data/update_currency":
-      console.log("@data/update_currency");
-      return { ...state, activeCurrency: action.payload };
+    case "@data/update_origin_currency":
+      console.log("@data/update_origin_currency");
+      return { ...state, originCurrency: action.payload };
+    case "@data/update_destiny_currency":
+      console.log("@data/update_destiny_currency");
+      return { ...state, destinyCurrency: action.payload };
     case "@data/user_input":
       console.log("@data/user_input");
       return { ...state, userInput: action.payload };
+    case "@data/swap_origin_destiny":
+      console.log("@data/swap_origin_destiny");
+      return {
+        ...state,
+        originCurrency: state.destinyCurrency,
+        destinyCurrency: state.originCurrency,
+      };
     default:
       return state;
   }
@@ -36,11 +47,21 @@ export const initApi = () => {
     });
   };
 };
-export const updateActiveCurrency = (activeCurrency, convertedAmount) => {
+
+export const updateOriginCurrency = (originCurrency) => {
   return (dispatch) => {
     dispatch({
-      type: "@data/update_currency",
-      payload: activeCurrency,
+      type: "@data/update_origin_currency",
+      payload: originCurrency,
+    });
+  };
+};
+
+export const updateDestinyCurrency = (destinyCurrency) => {
+  return (dispatch) => {
+    dispatch({
+      type: "@data/update_destiny_currency",
+      payload: destinyCurrency,
     });
   };
 };
@@ -49,5 +70,11 @@ export const userInput = (userInput) => {
   return {
     type: "@data/user_input",
     payload: userInput,
+  };
+};
+
+export const swapOriginDestiny = () => {
+  return {
+    type: "@data/swap_origin_destiny",
   };
 };
