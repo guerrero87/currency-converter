@@ -1,0 +1,9 @@
+.error-message {
+  display: block;
+  margin-top: 30px;
+}
+
+.error-action {
+  display: block;
+  margin-top: 20px;
+}

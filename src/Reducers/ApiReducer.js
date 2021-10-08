@@ -18,7 +18,8 @@ export const ApiReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: true,
-        statusCode: action.payload,
+        message: action.payload.message,
+        statusCode: action.payload.status,
       };
     default:
       return state;
@@ -33,7 +34,7 @@ export const initApi = () => {
     if (apiResponse.status !== 200) {
       dispatch({
         type: "@data/request_unsuccessful",
-        payload: apiResponse.status,
+        payload: apiResponse,
       });
     } else {
       dispatch({

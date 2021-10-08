@@ -21,7 +21,7 @@ export default function Content() {
         {apiState.loading ? (
           <Loading />
         ) : apiState.error ? (
-          <Error errorCode={apiState.statusCode} />
+          <Error message={apiState.message} />
         ) : (
           <CurrencyConverter />
         )}

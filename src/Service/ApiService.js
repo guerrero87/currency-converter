@@ -6,7 +6,12 @@ export function getApiData() {
     process.env.REACT_APP_EXCHANGE_RATE_API_KEY +
     "/latest/USD";
 
-  return axios.get(url).then((res) => {
-    return res;
-  });
+  return axios
+    .get(url)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
 }
