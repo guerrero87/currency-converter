@@ -32,7 +32,7 @@ export default function CurrencyConverter() {
         />
         <CurrencyDropdown title="To" type="destinyCurrency" />
       </div>
-      <span className="result">
+      <output className="result">
         {exchangeState.userInput == null || exchangeState.userInput === ""
           ? "Please enter a number to convert"
           : isNaN(exchangeState.userInput)
@@ -43,7 +43,7 @@ export default function CurrencyConverter() {
               convertCurrency(exchangeState.userInput),
               destinyCurrency
             )}
-      </span>
+      </output>
     </div>
   );
 }
