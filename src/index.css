@@ -3,6 +3,9 @@
   padding: 0;
   text-align: center;
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
   font-family: "Ubuntu";
+}
+
+*:focus {
+  outline: none;
 }

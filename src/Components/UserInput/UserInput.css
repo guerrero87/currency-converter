@@ -1,0 +1,10 @@
+.user-input {
+  text-align: left;
+}
+
+.user-input input {
+  display: block;
+  line-height: 32px;
+  border: solid #8390fa 2px;
+  width: 100%;
+}

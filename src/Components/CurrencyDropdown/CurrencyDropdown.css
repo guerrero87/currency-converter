@@ -1,0 +1,12 @@
+.currency-dropdown {
+  text-align: left;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.currency-dropdown select {
+  display: block;
+  height: 36px;
+  border: solid #8390fa 2px;
+  background-color: white;
+}

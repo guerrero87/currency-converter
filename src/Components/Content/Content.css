@@ -1,0 +1,43 @@
+.content {
+  background: linear-gradient(to bottom, #684490, #f88dad);
+  margin-top: 5em;
+  height: calc(100vh - 10em);
+}
+
+.conversion-card {
+  background-color: #fac748;
+  width: 300px;
+  height: 220px;
+  margin: auto;
+  border: rgb(0, 0, 0) solid 3px;
+  border-radius: 15px;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+.dropdown-wrapper {
+  margin-top: 20px;
+}
+
+.btn-swap {
+  padding: 0;
+  border: none;
+  height: 36px;
+  width: 36px;
+  margin-left: 10px;
+  position: relative;
+  top: 12px;
+}
+
+.btn-swap:hover {
+  cursor: pointer;
+}
+
+.result {
+  margin-top: 20px;
+  display: block;
+}

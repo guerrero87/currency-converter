@@ -3,6 +3,7 @@ import {
   updateDestinyCurrency,
   updateOriginCurrency,
 } from "../../Reducers/ExchangeReducer";
+import "./CurrencyDropdown.css";
 
 export default function CurrencyDropdown(props) {
   const dispatch = useDispatch();
@@ -10,7 +11,7 @@ export default function CurrencyDropdown(props) {
   const exchangeState = useSelector((state) => state.ExchangeReducer);
 
   return (
-    <div className="currency-dropdown-wrapper">
+    <div className="currency-dropdown">
       <span>{props.title}</span>
       <select
         name={props.type}
