@@ -6,6 +6,7 @@ import CurrencyDropdown from "../CurrencyDropdown/CurrencyDropdown";
 import UserInput from "../UserInput/UserInput";
 import "./Content.css";
 import swapIcon from "../../Icons/icon_swap.png";
+import { Loading } from "../Loading/Loading";
 
 export default function Content() {
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ export default function Content() {
     <div className="content">
       <div className="conversion-card">
         {apiState.loading ? (
-          <span className="loading">REQUESTING LATEST CONVERSION RATES</span>
+          <Loading />
         ) : (
           <div className="loaded">
             <UserInput />
