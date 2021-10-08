@@ -1,5 +1,5 @@
 .footer {
-  background-color: #f88dad;
+  background-color: transparent;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -11,10 +11,4 @@
 .footer span {
   display: block;
   margin-top: 5px;
-}
-
-@media (max-width: 30rem) {
-  .footer {
-    background-color: transparent;
-  }
 }
