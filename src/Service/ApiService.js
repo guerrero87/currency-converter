@@ -7,12 +7,6 @@ export function getApiData() {
     "/latest/USD";
 
   return axios.get(url).then((res) => {
-    if (res.status !== 200) {
-      return console.log("ERROR FETCHING DATA");
-    }
-
-    if (res.data != null) {
-      return res.data;
-    }
+    return res;
   });
 }

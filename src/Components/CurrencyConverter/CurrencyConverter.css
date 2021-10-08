@@ -1,0 +1,22 @@
+.dropdown-wrapper {
+    margin-top: 20px;
+  }
+  
+  .btn-swap {
+    padding: 0;
+    border: none;
+    height: 36px;
+    width: 36px;
+    margin-left: 10px;
+    position: relative;
+    top: 12px;
+  }
+  
+  .btn-swap:hover {
+    cursor: pointer;
+  }
+  
+  .result {
+    margin-top: 20px;
+    display: block;
+  }

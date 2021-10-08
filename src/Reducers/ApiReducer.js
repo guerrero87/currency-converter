@@ -6,11 +6,19 @@ const initialState = {
 
 export const ApiReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "@data/request":
+    case "@data/request_successful":
       return {
         ...state,
         loading: false,
+        error: false,
         conversionRates: action.payload,
+      };
+    case "@data/request_unsuccessful":
+      return {
+        ...state,
+        loading: false,
+        error: true,
+        statusCode: action.payload,
       };
     default:
       return state;
@@ -22,9 +30,16 @@ export const initApi = () => {
   return async (dispatch) => {
     const apiResponse = await getApiData();
 
-    dispatch({
-      type: "@data/request",
-      payload: apiResponse.conversion_rates,
-    });
+    if (apiResponse.status !== 200) {
+      dispatch({
+        type: "@data/request_unsuccessful",
+        payload: apiResponse.status,
+      });
+    } else {
+      dispatch({
+        type: "@data/request_successful",
+        payload: apiResponse.data.conversion_rates,
+      });
+    }
   };
 };
